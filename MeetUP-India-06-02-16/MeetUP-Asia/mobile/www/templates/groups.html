@@ -1,0 +1,11 @@
+<ion-view title="Groups">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-ios-list-outline" ui-sref="companies"></button>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="true" padding="false" class="has-header">
+    	<ion-refresher pulling-text="Pull to refresh" on-refresh="refresh()"></ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="g in groups">{{g.name}}</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,396 @@
+{
+	"toJSON": true,
+	"extraProperties": {
+		"version": "2",
+		"classes": {
+			"Employee": {
+				"panelColor": "#E5B9B7",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 25,
+						"Y": 20
+					}
+				}
+			},
+			"Company": {
+				"panelColor": "#C4BD97",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 395,
+						"Y": 37
+					}
+				}
+			},
+			"Group": {
+				"panelColor": "#C4BD97",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 680,
+						"Y": 163
+					}
+				}
+			},
+			"Employee_Group": {
+				"panelColor": "#D7E3BC",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 364,
+						"Y": 347
+					}
+				}
+			}
+		},
+		"model": {
+			"scriptMode": "manual",
+			"workspaceLeft": 0,
+			"workspaceTop": 0,
+			"relationCurve": {
+				"run": true,
+				"mode": 1
+			},
+			"lastScriptLocation": {
+				"Employee": {
+					"computed": "Employee/Employee-events.js",
+					"method": "Employee/Employee-methods.js",
+					"events": "Employee/Employee-events.js"
+				},
+				"Company": {
+					"events": "Company/Company-events.js"
+				},
+				"Group": {
+					"events": "Group/Group-events.js"
+				},
+				"Employee_Group": {
+					"events": "Employee_Group/Employee_Group-events.js"
+				}
+			}
+		}
+	},
+	"dataClasses": [
+		{
+			"name": "Company",
+			"className": "Company",
+			"collectionName": "Companies",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "groups",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Groups",
+					"reversePath": true,
+					"path": "company"
+				},
+				{
+					"name": "employees",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Employees",
+					"reversePath": true,
+					"path": "company"
+				},
+				{
+					"name": "name",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"not_null": true,
+					"type": "string",
+					"indexKind": "auto",
+					"identifying": true
+				},
+				{
+					"name": "logo",
+					"kind": "storage",
+					"matchColumn": "image",
+					"scope": "public",
+					"type": "image"
+				},
+				{
+					"name": "industry",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				}
+			],
+			"events": [
+				{
+					"kind": "restrict",
+					"from": "$mainModel.Company.events.restrict",
+					"userDefined": true
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"className": "Employee",
+			"collectionName": "Employees",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "firstname",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "lastname",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "username",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"not_null": true,
+					"type": "string",
+					"indexKind": "auto"
+				},
+				{
+					"name": "password",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "$mainModel.Employee.password.onGet",
+							"userDefined": true
+						}
+					],
+					"onSet": [
+						{
+							"from": "$mainModel.Employee.password.onSet",
+							"userDefined": true
+						}
+					]
+				},
+				{
+					"name": "is_male",
+					"kind": "storage",
+					"scope": "public",
+					"type": "bool"
+				},
+				{
+					"name": "image",
+					"kind": "storage",
+					"scope": "public",
+					"type": "image"
+				},
+				{
+					"name": "address",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "is_admin",
+					"kind": "storage",
+					"scope": "publicOnServer",
+					"type": "bool"
+				},
+				{
+					"name": "fullname",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "$mainModel.Employee.fullname.onGet",
+							"userDefined": true
+						}
+					]
+				},
+				{
+					"name": "ha1key",
+					"kind": "storage",
+					"scope": "publicOnServer",
+					"type": "string"
+				},
+				{
+					"name": "company",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Company",
+					"path": "Company"
+				},
+				{
+					"name": "empGroups",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "EmpGroups",
+					"reversePath": true,
+					"path": "employee"
+				},
+				{
+					"name": "groups",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Groups",
+					"path": "empGroups.group"
+				}
+			],
+			"events": [
+				{
+					"kind": "validate",
+					"from": "$mainModel.Employee.events.validate",
+					"userDefined": true
+				},
+				{
+					"kind": "restrict",
+					"from": "$mainModel.Employee.events.restrict",
+					"userDefined": true
+				}
+			],
+			"methods": [
+				{
+					"name": "isPwdValid",
+					"applyTo": "entity",
+					"scope": "publicOnServer",
+					"from": "$mainModel.Employee.entityMethods.isPwdValid",
+					"userDefined": true
+				}
+			]
+		},
+		{
+			"name": "Employee_Group",
+			"className": "Employee_Group",
+			"collectionName": "EmpGroups",
+			"matchTable": "Employee_Company",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "employee",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Employee",
+					"path": "Employee"
+				},
+				{
+					"name": "group",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Group",
+					"path": "Group"
+				}
+			],
+			"events": [
+				{
+					"kind": "validate",
+					"from": "$mainModel.Employee_Group.events.validate",
+					"userDefined": true
+				},
+				{
+					"kind": "restrict",
+					"from": "$mainModel.Employee_Group.events.restrict",
+					"userDefined": true
+				}
+			]
+		},
+		{
+			"name": "Group",
+			"className": "Group",
+			"collectionName": "Groups",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "company",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Company",
+					"path": "Company"
+				},
+				{
+					"name": "name",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string",
+					"indexKind": "auto"
+				},
+				{
+					"name": "empGroups",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "EmpGroups",
+					"reversePath": true,
+					"path": "group"
+				},
+				{
+					"name": "employees",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Employees",
+					"path": "empGroups.employee"
+				},
+				{
+					"name": "c_name",
+					"kind": "alias",
+					"scope": "public",
+					"type": "string",
+					"path": "company.name"
+				}
+			],
+			"events": [
+				{
+					"kind": "validate",
+					"from": "$mainModel.Group.events.validate",
+					"userDefined": true
+				},
+				{
+					"kind": "restrict",
+					"from": "$mainModel.Group.events.restrict",
+					"userDefined": true
+				}
+			]
+		}
+	]
+}
